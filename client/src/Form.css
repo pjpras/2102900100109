@@ -21,11 +21,16 @@ h1 {
 
 #redirectUrl {
   font-size: larger;
-  width: 45rem;
+  width: 49rem;
   padding: 0;
   margin: auto;
   background: #031f39;
   border: none;
+  color: #ffffff;
+}
+#redirectUrl:focus{
+  border:none;
+  outline: none;
 }
 
 #generate {
