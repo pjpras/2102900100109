@@ -42,7 +42,7 @@ async function handleAnalytics(req,res){
     const result = await URL.findOne({shortId});
     const obj = {
         'Total Clicks' : result.visitedHistory.length,
-        'Analytics': result.visitedHistory
+        Analytics: result.visitedHistory
     }
     res.json(obj);
 }

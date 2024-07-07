@@ -3,27 +3,20 @@ import axios from "axios";
 import Form from "./Form";
 
 const Home = () => {
-  const [apiRes, setApiRes] = useState();
+  const [analyticsRes, setAnalyticsRes] = useState();
   const [shortId, setShortId] = useState();
 
   useEffect(() => {
     async function fetchApi() {
       try {
-        const response = await axios.get(`/api/url/analytics/nAGGEqMD`);
-        setApiRes(response.data);
+        const response = await axios.get(`/api/url/analytics/${shortId}`);
+        setAnalyticsRes(response.data);
       } catch (error) {
         console.log(error);
       }
     }
-    fetchApi();
-  }, []);
-
-  useEffect(() => {
-    if (apiRes !== undefined) {
-      // Check to avoid logging undefined on initial render
-      console.log(apiRes); // Log state after it has been updated
-    }
-  }, [apiRes]);
+    if (shortId !== undefined) fetchApi();
+  }, [shortId]);
 
   const handleApiResponse = async (shortId) => {
     setShortId(shortId);
@@ -42,6 +35,22 @@ const Home = () => {
             target="_blank"
             rel="noopener noreferrer"
           >{`http://localhost:8001/${shortId}`}</a>
+        </div>
+      )}
+      {analyticsRes && (
+        <div style={{ background: "rgb(195 95 21)" }}>
+          <h2
+            style={{ color: "#031f39", marginLeft: "5rem", marginTop: "5rem" }}
+          >
+            Analytics:
+          </h2>
+          <p style={{ color: "#031f39", marginLeft: "5rem" }}>
+            Total Clicks: {analyticsRes["Total Clicks"]}
+          </p>
+          <pre style={{ color: "#031f39", marginLeft: "5rem" }}>
+            Timestamps:
+            {JSON.stringify(analyticsRes.Analytics, null, 2)}
+          </pre>
         </div>
       )}
     </>
